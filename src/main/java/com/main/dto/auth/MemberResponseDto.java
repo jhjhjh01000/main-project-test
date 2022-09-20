@@ -9,11 +9,11 @@ import lombok.Setter;
 
 
 
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class MemberResponseDto {
+
     private long memberId;
     private String email;
     private String password;
@@ -21,4 +21,15 @@ public class MemberResponseDto {
     private String userId;
     private String role;
     private LocalDateTime createDate;
+
+    public MemberResponseDto(long memberId, String email, String password, String username,
+        String userId, String role, LocalDateTime createDate) {
+        this.memberId = memberId;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.userId = userId;
+        this.role = role;
+        this.createDate = createDate;
+    }
 }

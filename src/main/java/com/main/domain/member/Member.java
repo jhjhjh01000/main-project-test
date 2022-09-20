@@ -23,8 +23,8 @@ import lombok.Setter;
 @Entity // DB에 테이블 생성
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
 
@@ -56,6 +56,8 @@ public class Member {
     @Column
     private LocalDateTime createDate;
 
+
+
     @PrePersist // DB에 INSERT 되기 직전에 실행
     public void createdDate() {
         this.createDate = LocalDateTime.now();
@@ -67,4 +69,6 @@ public class Member {
         }
         return new ArrayList<>();
     }
+
+
 }

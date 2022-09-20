@@ -60,7 +60,7 @@ public class MemberService {
 //        System.out.println(logResult.toUpperCase());
 //    }
 
-    public void deleteMember(Long id) {
-        memberRepository.deleteById(id);
+    public void deleteMember(Long memberId) {
+        memberRepository.deleteById(memberId);
     }
 }
