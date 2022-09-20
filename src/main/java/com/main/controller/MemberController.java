@@ -1,17 +1,23 @@
 package com.main.controller;
 
 import com.main.domain.member.Member;
+import com.main.dto.auth.MemberPatchDto;
 import com.main.dto.auth.MemberRegisterDto;
 import com.main.dto.auth.MemberResponseDto;
 import com.main.mapper.MemberMapper;
 import com.main.service.MemberService;
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,5 +53,36 @@ public class MemberController {
 
         return new ResponseEntity<>(mapper.memberToMemberResponseDto(response),
             HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity patchMember(
+        @PathVariable("userId") @Positive long memberId,
+        @Valid @RequestBody MemberPatchDto memberPatchDto) {
+        memberPatchDto.setMemberId(memberId);
+
+        Member response =
+            memberService.updateMember(mapper.memberPatchDtoToMember(memberPatchDto));
+
+        return new ResponseEntity<>(mapper.memberToMemberResponseDto(response),
+            HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity getMember(
+        @PathVariable("userId") @Positive long memberId) {
+        Member response = memberService.findMember(memberId);
+
+        return new ResponseEntity<>(mapper.memberToMemberResponseDto(response),
+            HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity deleteMember(
+        @PathVariable("userId") @Positive long memberId) {
+        System.out.println("# delete member");
+        memberService.deleteMember(memberId);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

@@ -15,8 +15,9 @@ import lombok.Setter;
 //@Data //getter,setter
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+
 public class MemberRegisterDto {
 
     @NotBlank
@@ -33,11 +34,5 @@ public class MemberRegisterDto {
     private String userId;
     private String role;
 
-//    public Member toEntity() {
-//        return Member.builder()
-//            .email(email)
-//            .password(password)
-//            .role(role)
-//            .build();
-//    }
+
 }
