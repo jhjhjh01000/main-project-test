@@ -1,6 +1,9 @@
 package com.main.dto.auth;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
+import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -10,24 +13,24 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class MemberPatchDto {
 
     private long memberId;
     private String email;
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,20}$",
+        message = "비밀번호는 6~20 자리이면서 1개 이상의 알파벳, 숫자, 특수문자를 포함해야합니다.")
     private String password;
     private String username;
     private String userId;
     private String role;
 
-    public MemberPatchDto(long memberId, String email, String password, String username,
-        String userId,
-        String role) {
-        this.memberId = memberId;
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.userId = userId;
-        this.role = role;
-    }
+    private String website;
+
+    private String bio;
+
+    private String phone;
+
+    private String profileImageUrl;
+
+
 }

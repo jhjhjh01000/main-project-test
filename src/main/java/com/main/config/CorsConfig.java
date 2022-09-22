@@ -17,6 +17,8 @@ public class CorsConfig {
         config.addAllowedOrigin("http://stay-buddy.s3-website.ap-northeast-2.amazonaws.com/");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
+        config.addExposedHeader("Authorization");
+        config.addExposedHeader("memberId");
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);

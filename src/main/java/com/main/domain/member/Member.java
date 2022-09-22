@@ -10,12 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,8 +25,9 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 번호 증가 전략이 데이터베이스 따라감
-    private Long id;
+    private Long memberId;
 
+    @Column
     private String username;
 
     @Column
@@ -40,28 +36,34 @@ public class Member {
     @Column
     private String password;
 
+    @Column
     private String userId;
 
+    @Column
     private String website;
 
+    @Column
     private String bio;
 
+    @Column
     private String phone;
 
+    @Column
     private String profileImageUrl;
 
     @Column
     private String role;
 
+//    @Column
+//    private LocalDateTime createDate;
     @Column
-    private LocalDateTime createDate;
+    private LocalDateTime last_edit_date = LocalDateTime.now();
 
 
-
-    @PrePersist // DB에 INSERT 되기 직전에 실행
-    public void createdDate() {
-        this.createDate = LocalDateTime.now();
-    }
+//    @PrePersist // DB에 INSERT 되기 직전에 실행
+//    public void createdDate() {
+//        this.last_edit_date = LocalDateTime.now();
+//    }
 
     public List<String> getRoleList() {
         if (this.role.length() > 0) {

@@ -30,6 +30,7 @@ public class GlobalExceptionAdvice {
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity handleBusinessLogicException
         (BusinessLogicException e) {
 

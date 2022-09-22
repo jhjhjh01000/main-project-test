@@ -25,17 +25,18 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public Member findMember(long id) {
-        return checkFindMember(id);
+    public Member findMember(long memberId) {
+        return checkFindMember(memberId);
     }
 
     public Member updateMember(Member member) {
 
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
-        Member findMember = checkFindMember(member.getId());
+        Member findMember = checkFindMember(member.getMemberId());
+        Optional.ofNullable(member.getEmail())
+            .ifPresent(email -> findMember.setEmail(email));
         Optional.ofNullable(member.getPassword())
-            .ifPresent(pw -> findMember.setPassword(pw));
-        findMember.setCreateDate(LocalDateTime.parse(String.valueOf(LocalDateTime.now())));
+            .ifPresent(password -> findMember.setPassword(password));
         return memberRepository.save(findMember);
     }
 
@@ -47,8 +48,8 @@ public class MemberService {
         }
     }
 
-    public Member checkFindMember(long id) {
-        Optional<Member> optionalMember = memberRepository.findById(id);
+    public Member checkFindMember(long memberId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
         Member findMember = optionalMember.orElseThrow(
             () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;

@@ -14,7 +14,6 @@ import lombok.Setter;
 //@Builder
 //@Data //getter,setter
 
-@NoArgsConstructor
 @Getter
 @Setter
 public class MemberRegisterDto {
@@ -33,13 +32,5 @@ public class MemberRegisterDto {
     private String userId;
     private String role;
 
-    public MemberRegisterDto(String email, String password, String username, String userId,
-        String role) {
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.userId = userId;
-        this.role = role;
     }
-}
 
