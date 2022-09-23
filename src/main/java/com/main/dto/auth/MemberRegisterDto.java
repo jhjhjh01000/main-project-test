@@ -30,7 +30,10 @@ public class MemberRegisterDto {
     private String username;
 
     private String userId;
+
     private String role;
+
+
 
     }
 

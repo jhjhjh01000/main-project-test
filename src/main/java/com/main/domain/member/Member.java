@@ -57,6 +57,9 @@ public class Member {
 //    @Column
 //    private LocalDateTime createDate;
     @Column
+    private LocalDateTime creation_date = LocalDateTime.now();
+
+    @Column
     private LocalDateTime last_edit_date = LocalDateTime.now();
 
 

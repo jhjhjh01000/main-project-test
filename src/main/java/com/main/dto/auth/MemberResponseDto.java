@@ -29,4 +29,8 @@ public class MemberResponseDto {
     private String phone;
 
     private String profileImageUrl;
+
+    private LocalDateTime creation_date;
+
+    private LocalDateTime last_edit_date;
 }

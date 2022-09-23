@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+//@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -31,12 +31,14 @@ public class MemberService {
 
     public Member updateMember(Member member) {
 
-        member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+//        member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+//        String rawPassword = member.getPassword();
+//        member.setPassword(bCryptPasswordEncoder.encode(rawPassword));
         Member findMember = checkFindMember(member.getMemberId());
         Optional.ofNullable(member.getEmail())
             .ifPresent(email -> findMember.setEmail(email));
         Optional.ofNullable(member.getPassword())
-            .ifPresent(password -> findMember.setPassword(password));
+            .ifPresent(password -> findMember.setPassword(bCryptPasswordEncoder.encode(password)));
 
         return memberRepository.save(findMember);
     }

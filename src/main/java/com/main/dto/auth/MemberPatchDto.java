@@ -1,13 +1,8 @@
 package com.main.dto.auth;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.Column;
 import javax.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
