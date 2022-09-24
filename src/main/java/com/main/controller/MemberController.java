@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/users")
 @Validated
 @Slf4j
 
@@ -57,6 +56,8 @@ public class MemberController {
         return new ResponseEntity<>(mapper.memberToMemberResponseDto(response),
             HttpStatus.CREATED);
     }
+
+    @RequestMapping("/api/users")
 
     @PatchMapping("/{userId}")
     public ResponseEntity patchMember(@AuthenticationPrincipal PrincipalDetails principalDetails,

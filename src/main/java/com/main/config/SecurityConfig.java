@@ -38,7 +38,7 @@ public class SecurityConfig {
             .formLogin().disable()
             .httpBasic().disable()
             .authorizeRequests()
-            .antMatchers("/api/v1/user/**")
+            .antMatchers("/api/users/**")
             .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
             .antMatchers("/api/v1/manager/**")
             .access("hasRole('ROLE_ADMIN')")

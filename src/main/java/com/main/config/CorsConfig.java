@@ -14,7 +14,7 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("https://d18ye3icy0iu5o.cloudfront.net/");
+        config.addAllowedOrigin("http://stbuddy-v2-http.s3-website.ap-northeast-2.amazonaws.com/");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");
