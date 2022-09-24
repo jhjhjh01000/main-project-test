@@ -14,7 +14,7 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3001/");
+        config.addAllowedOrigin("http://pre-client.s3-website-us-east-1.amazonaws.com/");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");
