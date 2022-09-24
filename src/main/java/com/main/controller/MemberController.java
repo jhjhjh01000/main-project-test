@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Validated
 @Slf4j
+//@RequestMapping("/api/users")
+
 
 public class MemberController {
 
@@ -57,9 +59,7 @@ public class MemberController {
             HttpStatus.CREATED);
     }
 
-    @RequestMapping("/api/users")
-
-    @PatchMapping("/{userId}")
+    @PatchMapping("/api/users/{userId}")
     public ResponseEntity patchMember(@AuthenticationPrincipal PrincipalDetails principalDetails,
         @PathVariable("userId") @Positive Long memberId,
         @Valid @RequestBody MemberPatchDto memberPatchDto) {
@@ -73,7 +73,7 @@ public class MemberController {
             HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/api/users/{userId}")
     public ResponseEntity getMember(
         @PathVariable("userId") @Positive long memberId) {
         Member response = memberService.findMember(memberId);
@@ -82,7 +82,7 @@ public class MemberController {
             HttpStatus.OK);
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/api/users/{userId}")
     public ResponseEntity deleteMember(
         @PathVariable("userId") @Positive long memberId) {
         System.out.println("# delete member");
