@@ -22,6 +22,7 @@ public class MemberService {
 
 
 
+    //verifyExistsEmail 체크후 이메일 존재여부 확인후 멤버레포지토리에 저장
     public Member createMember(Member member) {
 
         verifyExistsEmail(member.getEmail());
@@ -44,15 +45,14 @@ public class MemberService {
 //            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_MATCH);
 //        }
             Optional.ofNullable(member.getEmail())
-                .ifPresent(email -> findMember.setEmail(email));
-            Optional.ofNullable(member.getPassword())
+                .ifPresent(email -> findMember.setEmail(email)); //이메일 변경
+            Optional.ofNullable(member.getPassword()) // 패스워드 변경
                 .ifPresent(
-                    password -> findMember.setPassword(bCryptPasswordEncoder.encode(password)));
+                    password -> findMember.setPassword(bCryptPasswordEncoder.encode(password))); //암호화된 패스워드로 비교
 
         return memberRepository.save(findMember);
     }
-
-
+    //멤버 레포지토리에서 이메일이 빈값이 아닐시 예외처리(MEMBER_EXISTS)
     private void verifyExistsEmail(String email) {
         Member member = memberRepository.findByEmail(email);
 

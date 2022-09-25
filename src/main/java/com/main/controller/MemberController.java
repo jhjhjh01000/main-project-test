@@ -46,7 +46,7 @@ public class MemberController {
     }
 
 
-    @PostMapping("/signup")
+    @PostMapping("/signup") //회원가입
     public ResponseEntity postMember(@Valid @RequestBody MemberRegisterDto memberRegisterDto) {
         memberRegisterDto.setPassword(
             bCryptPasswordEncoder.encode(memberRegisterDto.getPassword()));
@@ -59,7 +59,7 @@ public class MemberController {
             HttpStatus.CREATED);
     }
 
-    @PatchMapping("/api/users/{userId}")
+    @PatchMapping("/api/users/{userId}") //회원정보 수정
     public ResponseEntity patchMember(@AuthenticationPrincipal PrincipalDetails principalDetails,
         @PathVariable("userId") @Positive Long memberId,
         @Valid @RequestBody MemberPatchDto memberPatchDto) {
@@ -73,7 +73,7 @@ public class MemberController {
             HttpStatus.OK);
     }
 
-    @GetMapping("/api/users/{userId}")
+    @GetMapping("/api/users/{userId}") //회원 조회
     public ResponseEntity getMember(
         @PathVariable("userId") @Positive long memberId) {
         Member response = memberService.findMember(memberId);
@@ -82,7 +82,7 @@ public class MemberController {
             HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/users/{userId}")
+    @DeleteMapping("/api/users/{userId}") //회원탈퇴
     public ResponseEntity deleteMember(
         @PathVariable("userId") @Positive long memberId) {
         System.out.println("# delete member");
