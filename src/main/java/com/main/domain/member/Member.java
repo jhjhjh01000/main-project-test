@@ -50,6 +50,7 @@ private String profileImageUrl;
 
     //    @Column
 //    private LocalDateTime createDate;
+    @Builder.Default
     @Column
     private LocalDateTime creation_date = LocalDateTime.now();
 
