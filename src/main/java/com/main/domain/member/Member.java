@@ -53,7 +53,7 @@ private String profileImageUrl;
     @Builder.Default
     @Column
     private LocalDateTime creation_date = LocalDateTime.now();
-
+    @Builder.Default
     @Column
     private LocalDateTime last_edit_date = LocalDateTime.now();
 
