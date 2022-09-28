@@ -30,6 +30,6 @@ logging.level:
 
 
 file:
-  path: /home/ubuntu/uploads/
+  path: /home/ubuntu/
 #  path: /Users/jihwan/desktop/
 
