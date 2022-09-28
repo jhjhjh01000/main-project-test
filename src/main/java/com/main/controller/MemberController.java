@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -48,9 +46,9 @@ public class MemberController {
 
     @PostMapping("/signup") //회원가입
     public ResponseEntity postMember(@Valid @RequestBody MemberRegisterDto memberRegisterDto) {
-        memberRegisterDto.setPassword(
-            bCryptPasswordEncoder.encode(memberRegisterDto.getPassword()));
-        memberRegisterDto.setRole("ROLE_USER");
+//        memberRegisterDto.setPassword(
+//            bCryptPasswordEncoder.encode(memberRegisterDto.getPassword()));
+//        memberRegisterDto.setRole("ROLE_USER");
         Member member = mapper.memberPostDtoToMember(memberRegisterDto);
 
         Member response = memberService.createMember(member);

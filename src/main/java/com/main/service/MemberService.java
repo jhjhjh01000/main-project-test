@@ -3,9 +3,7 @@ package com.main.service;
 import com.main.domain.member.Member;
 import com.main.exception.BusinessLogicException;
 import com.main.exception.ExceptionCode;
-import com.main.oauth.PrincipalDetails;
 import com.main.repository.MemberRepository;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-//@Transactional
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -26,13 +24,16 @@ public class MemberService {
     public Member createMember(Member member) {
 
         verifyExistsEmail(member.getEmail());
+        member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+        member.setRole("ROLE_USER");
+
         return memberRepository.save(member);
     }
 
     public Member findMember(long memberId) {
         return checkFindMember(memberId);
     }
-
+    //회원정보 수정
     public Member updateMember(Member member) {
 
 
@@ -44,8 +45,8 @@ public class MemberService {
 //        if (findMember.getMemberId() != repo.get().getMemberId()) {
 //            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_MATCH);
 //        }
-            Optional.ofNullable(member.getEmail())
-                .ifPresent(email -> findMember.setEmail(email)); //이메일 변경
+            Optional.ofNullable(member.getUsername())
+                .ifPresent(username -> findMember.setUsername(username)); //이메일 변경
             Optional.ofNullable(member.getPassword()) // 패스워드 변경
                 .ifPresent(
                     password -> findMember.setPassword(bCryptPasswordEncoder.encode(password))); //암호화된 패스워드로 비교
