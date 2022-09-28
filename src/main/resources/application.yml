@@ -19,10 +19,17 @@ spring:
     properties:
       hibernate:
     show_sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 3MB
+      enabled: true
+
 logging.level:
   org.hibernate.SQL: debug
 
-server:
-  servlet:
-    encoding:
-      force-response: true
+
+file:
+  path: /Users/jihwan/desktop/
+
+

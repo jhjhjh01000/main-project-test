@@ -1,10 +1,10 @@
-package com.main.filter;
+package com.main.config.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.domain.member.Member;
-import com.main.oauth.PrincipalDetails;
+import com.main.config.auth.PrincipalDetails;
 import java.io.IOException;
 import java.util.Date;
 import javax.servlet.FilterChain;
