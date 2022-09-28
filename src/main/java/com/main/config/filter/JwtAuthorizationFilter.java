@@ -1,10 +1,10 @@
-package com.main.filter;
+package com.main.config.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.main.domain.member.Member;
-import com.main.oauth.PrincipalDetails;
-import com.main.repository.MemberRepository;
+import com.main.config.auth.PrincipalDetails;
+import com.main.domain.member.MemberRepository;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

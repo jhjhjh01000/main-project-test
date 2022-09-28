@@ -1,8 +1,8 @@
 package com.main.config;
 
-import com.main.filter.JwtAuthenticationFilter;
-import com.main.filter.JwtAuthorizationFilter;
-import com.main.repository.MemberRepository;
+import com.main.config.filter.JwtAuthenticationFilter;
+import com.main.config.filter.JwtAuthorizationFilter;
+import com.main.domain.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,8 +40,7 @@ public class SecurityConfig {
             .authorizeRequests()
             .antMatchers("/api/users/**")
             .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-            .antMatchers("/api/v1/manager/**")
-            .access("hasRole('ROLE_ADMIN')")
+            .antMatchers("/api/users/**","/subscribe/**","/comment/**","/image/**").authenticated()
             .antMatchers("/api/v1/admin/**")
             .access("hasRole('ROLE_ADMIN')")
             .anyRequest().permitAll();

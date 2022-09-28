@@ -1,4 +1,4 @@
-package com.main.repository;
+package com.main.domain.member;
 
 import com.main.domain.member.Member;
 import java.util.Optional;

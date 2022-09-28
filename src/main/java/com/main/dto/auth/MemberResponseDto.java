@@ -19,14 +19,8 @@ public class MemberResponseDto {
 
     private String password;
     private String username;
-    private String userId;
+    private String name;
     private String role;
-
-    private String website;
-
-    private String bio;
-
-    private String phone;
 
     private String profileImageUrl;
 

@@ -1,4 +1,4 @@
-package com.main.oauth;
+package com.main.config.auth;
 
 import com.main.domain.member.Member;
 import com.main.dto.auth.MemberRegisterDto;
