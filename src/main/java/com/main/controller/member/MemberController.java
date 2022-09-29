@@ -86,12 +86,13 @@ public class MemberController {
 //            //강제로 Exception이 터지도록하였다. 이렇게 Exception만 터지게되면 ux가 좋지않다.
 //            //그러므로 Exception만을 따로 처리하는 handler패키지 만듦
 //            throw new CustomValidationApiException("유효성 검사를 실패하였습니다", errorMap);
-//        } else {
+//        } else if (principalDetails.getMember().getMemberId() == id) {
 //
 //
 //            Member memberEntity = memberService.MemberUpdate(id, memberUpdateDto.toEntity());
 //            return new CMRespDto<>("회원 수정이 완료되었습니다.", memberEntity);
 //        }
+//        return new CMRespDto<>("회원수정이 불가능 합니다", null);
 //    }
 
     @GetMapping("/api/users/{userId}") //회원 조회
