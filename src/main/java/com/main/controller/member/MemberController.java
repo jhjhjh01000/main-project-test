@@ -114,17 +114,12 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-//    @GetMapping("/api/users/2/{pageUserId}")
-//    public MemberProfileDto profile(@PathVariable Long pageUserId,
-//        @AuthenticationPrincipal PrincipalDetails principalDetails) {
-//        MemberProfileDto dto = memberGetService.회원프로필(pageUserId,
-//            principalDetails.getMember().getMemberId());
-//        return dto;
-//    }
-
     @GetMapping("/api/users/2/{pageUserId}")
-    public MemberProfileDto profile(@PathVariable Long pageUserId) {
-        MemberProfileDto dto = memberGetService.회원프로필(pageUserId);
+    public MemberProfileDto profile(@PathVariable Long pageUserId,
+        @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        MemberProfileDto dto = memberGetService.회원프로필(pageUserId,
+            principalDetails.getMember().getMemberId());
         return dto;
     }
+
 }
