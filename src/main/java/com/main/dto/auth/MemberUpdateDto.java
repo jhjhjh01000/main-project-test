@@ -8,13 +8,13 @@ import lombok.Data;
 
 public class MemberUpdateDto {
     @NotBlank
-    private String name;
+    private String username;
     @NotBlank
     private String password;
 
     public Member toEntity(){
         return Member.builder()
-            .name(name)
+            .username(username)
             .password(password)
             .build();
     }
