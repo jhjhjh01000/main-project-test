@@ -45,7 +45,7 @@ public class MemberService {
         // Optional은 2가지를 할 수 있는데 첫번쨰는 .get();, .Orlelsethrow()
         Member memberEntity = memberRepository.findById(id).orElseThrow(()->{ return new CustomValidationApiException("찾을 수 없는 회원입니다.");
         }); // 유저 테이블에서 등록된 번호로 그 회원이 있는지 없는지 찾는다.
-        memberEntity.setName(member.getName());
+        memberEntity.setUsername(member.getUsername());
 
         String rawPassword = member.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
