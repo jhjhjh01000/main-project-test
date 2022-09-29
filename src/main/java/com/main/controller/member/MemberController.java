@@ -113,7 +113,7 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/api/users/2/{pageUserId}")
+    @GetMapping("/api/users/")
     public MemberProfileDto profile(@PathVariable Long pageUserId,
         @AuthenticationPrincipal PrincipalDetails principalDetails) {
         MemberProfileDto dto = memberGetService.회원프로필(pageUserId,
