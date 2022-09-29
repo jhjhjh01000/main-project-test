@@ -1,13 +1,16 @@
 package com.main.service;
 
 import com.main.config.auth.PrincipalDetails;
+import com.main.controller.member.MemberController;
 import com.main.domain.member.Member;
+import com.main.dto.auth.MemberPatchDto;
 import com.main.exception.BusinessLogicException;
 import com.main.exception.CustomValidationApiException;
 import com.main.exception.ExceptionCode;
 import com.main.domain.member.MemberRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +21,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    private final PrincipalDetails principalDetails;
-
 
     //verifyExistsEmail 체크후 이메일 존재여부 확인후 멤버레포지토리에 저장
     @Transactional
@@ -62,15 +62,15 @@ public class MemberService {
 //
 //        //본인만 수정 가능
 //        Member findMember = checkFindMember(member.getMemberId());
-//    if (principalDetails.getMember().getMemberId() == findMember.getMemberId()) {
+//    if (principalDetails.getMember().getMemberId() != findMember.getMemberId()) {
+//        throw new BusinessLogicException((ExceptionCode.MEMBER_NOT_MATCH));
+//    } else {
 //        Optional.ofNullable(member.getUsername())
 //            .ifPresent(username -> findMember.setUsername(username)); //닉네임 변경
 //        Optional.ofNullable(member.getPassword()) // 패스워드 변경
 //            .ifPresent(
 //                password -> findMember.setPassword(
 //                    bCryptPasswordEncoder.encode(password))); //암호화된 패스워드로 비교
-//    } else {
-//        throw new BusinessLogicException((ExceptionCode.MEMBER_NOT_MATCH));
 //    }
 //    return memberRepository.save(findMember);
 //    }
