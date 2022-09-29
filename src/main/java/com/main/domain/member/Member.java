@@ -48,8 +48,6 @@ private String role;
 
 private String profileImageUrl;
 
-    //    @Column
-//    private LocalDateTime createDate;
     @Builder.Default
     @Column
     private LocalDateTime creation_date = LocalDateTime.now();
@@ -64,19 +62,10 @@ private List<Image> images;    // mappedby -> User를 select할떄 해당 userId
 
 // User정보와 더불어 image데이터까지 같이가져오려면 양방향 매핑하면됨
 
-
-
-//    @PrePersist // DB에 INSERT 되기 직전에 실행
-//    public void createdDate() {
-//        this.last_edit_date = LocalDateTime.now();
-//    }
-
     public List<String> getRoleList() {
         if (this.role.length() > 0) {
             return Arrays.asList(this.role.split(","));
         }
         return new ArrayList<>();
     }
-
-
 }

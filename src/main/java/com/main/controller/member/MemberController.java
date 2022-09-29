@@ -1,6 +1,7 @@
 package com.main.controller.member;
 
 import com.main.domain.member.Member;
+import com.main.domain.member.MemberRepository;
 import com.main.dto.CMRespDto;
 import com.main.dto.auth.MemberPatchDto;
 import com.main.dto.auth.MemberRegisterDto;
@@ -45,9 +46,7 @@ public class MemberController {
 
     private final MemberGetService memberGetService;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberMapper mapper;
-
 
     @PostMapping("/signup") //회원가입
     public ResponseEntity postMember(@Valid @RequestBody MemberRegisterDto memberRegisterDto) {
@@ -76,7 +75,9 @@ public class MemberController {
 //    }
 
     @PatchMapping("/api/users/{id}")
-    public CMRespDto<?> update(@PathVariable Long id, @Valid @RequestBody MemberUpdateDto memberUpdateDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public CMRespDto<?> update(@PathVariable Long id,
+        @Valid @RequestBody MemberUpdateDto memberUpdateDto, BindingResult bindingResult,
+        @AuthenticationPrincipal PrincipalDetails principalDetails) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
             //for문을 돌면서 에러 생긴 필드에 관한 메세지를 모음
@@ -87,7 +88,6 @@ public class MemberController {
             //그러므로 Exception만을 따로 처리하는 handler패키지 만듦
             throw new CustomValidationApiException("유효성 검사를 실패하였습니다", errorMap);
         } else if (principalDetails.getMember().getMemberId() == id) {
-
 
             Member memberEntity = memberService.MemberUpdate(id, memberUpdateDto.toEntity());
             return new CMRespDto<>("회원 수정이 완료되었습니다.", memberEntity);
@@ -105,7 +105,6 @@ public class MemberController {
     }
 
 
-
     @DeleteMapping("/api/users/{userId}") //회원탈퇴
     public ResponseEntity deleteMember(
         @PathVariable("userId") @Positive long memberId) {
@@ -115,12 +114,17 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+//    @GetMapping("/api/users/2/{pageUserId}")
+//    public MemberProfileDto profile(@PathVariable Long pageUserId,
+//        @AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        MemberProfileDto dto = memberGetService.회원프로필(pageUserId,
+//            principalDetails.getMember().getMemberId());
+//        return dto;
+//    }
+
     @GetMapping("/api/users/2/{pageUserId}")
-    public MemberProfileDto profile(@PathVariable Long pageUserId,
-        @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        MemberProfileDto dto = memberGetService.회원프로필(pageUserId,
-            principalDetails.getMember().getMemberId());
+    public MemberProfileDto profile(@PathVariable Long pageUserId) {
+        MemberProfileDto dto = memberGetService.회원프로필(pageUserId);
         return dto;
     }
-
 }
