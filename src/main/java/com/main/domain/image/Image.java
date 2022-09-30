@@ -35,6 +35,8 @@ public class Image {
 
     private String username;
 
+    private List<Image> images;
+
     @JoinColumn(name = "memberId")
     @ManyToOne
     private Member member; // 한명의 유저는 여러 이미지를 업로드할 수 있다.
