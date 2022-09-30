@@ -21,7 +21,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/upload/**")  //이러한 주소패턴이 나오면 아래들을 발동시킬것이다.
             .addResourceLocations("file:///"+uploadFolder)  //내가 적은 경로가 발동이 됨
             .setCacheControl(CacheControl.maxAge(Duration.ofHours(1L)).cachePublic()); //캐시 설정
-
-
     }
 }
