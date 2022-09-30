@@ -35,6 +35,8 @@ public class Image {
 
     private String username;
 
+    @JsonIgnoreProperties({"member"})   //json으로 파싱할떄 메세지 컨버터야 user는 하지마 (Image에 있는 user를 무시하고 파싱)
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private List<Image> images;
 
     @JoinColumn(name = "memberId")
