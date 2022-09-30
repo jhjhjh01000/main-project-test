@@ -4,6 +4,7 @@ import com.main.config.auth.PrincipalDetails;
 import com.main.domain.image.Image;
 import com.main.dto.MultiResponseDto;
 import com.main.dto.image.ImageUploadDto;
+import com.main.dto.member.MemberProfileDto;
 import com.main.mapper.MemberMapper;
 import com.main.service.MemberService;
 import com.main.service.image.ImageService;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ImageController {
     private final MemberService memberService;
+
+    private final MemberGetService memberGetService;
 
     private final MemberMapper mapper;
 
@@ -42,6 +46,24 @@ public class ImageController {
         return "사진 업로드 완료";
 
     }
+
+    @GetMapping("/api/posts/{pageUserId}")
+    public MemberProfileDto profile(@PathVariable Long pageUserId,
+        @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        MemberProfileDto dto = memberGetService.회원프로필(pageUserId,
+            principalDetails.getMember().getMemberId());
+        return dto;
+    }
+
+//    @GetMapping("/api/posts/{pageUserId}")
+//    public MemberProfileDto profile(@PathVariable Long pageUserId,
+//        @AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        MemberProfileDto dto = memberGetService.회원프로필(pageUserId,
+//            principalDetails.getMember().getMemberId());
+//        return dto;
+//    }
+
+
 
     @GetMapping("/api/posts")
     public ResponseEntity getMembers(@Positive @RequestParam(required = false, defaultValue = "1") Integer page,
