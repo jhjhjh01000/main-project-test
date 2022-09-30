@@ -12,9 +12,10 @@ public class ImageUploadDto {
     private String caption;
 
     // postImage가 정확하게 뭐냐면면
-    public Image toEntity(String postImageUrl, Member member){
+    public Image toEntity(String postImageUrl, Member member, String username){
         return Image.builder()
             .caption(caption)
+            .username(username)
             .postImageUrl(postImageUrl)
             .member(member)
             .build();

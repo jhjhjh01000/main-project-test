@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements PrincipalDetails1 {
 
     private Member member;
     private MemberRegisterDto memberRegisterDto;
@@ -35,6 +34,10 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public String getUsername() {
         return member.getEmail();
+    }
+    @Override
+    public String getEmail() {
+        return member.getUsername();
     }
 
     @Override

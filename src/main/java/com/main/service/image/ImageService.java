@@ -37,7 +37,8 @@ public class ImageService {
 
         }
 
-        Image image = imageUploadDto.toEntity(imageFileName,principalDetails.getMember());
+        Image image = imageUploadDto.toEntity(imageFileName,principalDetails.getMember(),
+            principalDetails.getEmail());
         Image imageEntity = imageRepository.save(image);
 
     }

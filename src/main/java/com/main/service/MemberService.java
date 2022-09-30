@@ -8,8 +8,12 @@ import com.main.exception.BusinessLogicException;
 import com.main.exception.CustomValidationApiException;
 import com.main.exception.ExceptionCode;
 import com.main.domain.member.MemberRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +41,10 @@ public class MemberService {
         return checkFindMember(memberId);
     }
 
+//    public Page<Member> findMembers(Integer page, Integer size) {
+//        return memberRepository.findAll(PageRequest.of(page, size,
+//            Sort.by("memberId").descending()));
+//    }
     //회원정보 수정
     @Transactional
     public Member MemberUpdate(Long id,Member member){

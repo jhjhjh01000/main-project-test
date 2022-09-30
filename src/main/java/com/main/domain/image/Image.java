@@ -33,6 +33,8 @@ public class Image {
 
     private String postImageUrl; // 사진을 전송받아서 서버의 특정폴더에 저장할것, DB에 저장된 경로 INSERT,그래서 애는 경로만 갖고있다
 
+    private String username;
+
     @JoinColumn(name = "memberId")
     @ManyToOne
     private Member member; // 한명의 유저는 여러 이미지를 업로드할 수 있다.
