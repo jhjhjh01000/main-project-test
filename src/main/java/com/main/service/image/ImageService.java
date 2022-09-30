@@ -31,6 +31,8 @@ public class ImageService {
         // C드라이브의 upload폴더에 imageFilename 원본으로 파일받는 코드
         Path imageFilePath = Paths.get(uploadFolder+imageFileName);
 
+        Long SnsId = imageUploadDto.getSnsId();
+
         try{
             Files.write(imageFilePath,imageUploadDto.getFile().getBytes());
         }catch (Exception e){
@@ -38,7 +40,7 @@ public class ImageService {
         }
 
         Image image = imageUploadDto.toEntity(imageFileName,principalDetails.getMember(),
-            principalDetails.getEmail());
+            principalDetails.getEmail(),SnsId);
         Image imageEntity = imageRepository.save(image);
 
     }

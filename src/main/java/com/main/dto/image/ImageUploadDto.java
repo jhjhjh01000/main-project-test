@@ -11,12 +11,15 @@ public class ImageUploadDto {
     private MultipartFile file;
     private String caption;
 
+    private Long snsId;
+
     // postImage가 정확하게 뭐냐면면
-    public Image toEntity(String postImageUrl, Member member, String username){
+    public Image toEntity(String postImageUrl, Member member, String username, Long snsId){
         return Image.builder()
             .caption(caption)
             .username(username)
             .postImageUrl(postImageUrl)
+            .snsId(snsId)
             .member(member)
             .build();
     }

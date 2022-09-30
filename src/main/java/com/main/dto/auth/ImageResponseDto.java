@@ -17,6 +17,8 @@ public class ImageResponseDto {
 
     private String username;
 
+    private Long snsId;
+
     private LocalDateTime creation_date;
 
     private LocalDateTime last_edit_date;

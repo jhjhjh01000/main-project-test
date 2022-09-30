@@ -1,5 +1,6 @@
 package com.main.config.auth;
 
+import com.main.domain.image.Image;
 import com.main.domain.member.Member;
 import com.main.dto.auth.MemberRegisterDto;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class PrincipalDetails implements PrincipalDetails1 {
 
     private Member member;
     private MemberRegisterDto memberRegisterDto;
+    private Image image;
 
     public PrincipalDetails(Member member) {
         this.member = member;
@@ -38,6 +40,11 @@ public class PrincipalDetails implements PrincipalDetails1 {
     @Override
     public String getEmail() {
         return member.getUsername();
+    }
+
+    @Override
+    public Long getSnsId() {
+        return image.getSnsId();
     }
 
     @Override

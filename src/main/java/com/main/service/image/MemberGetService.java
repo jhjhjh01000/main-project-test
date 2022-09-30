@@ -41,7 +41,6 @@ public class MemberGetService {
 //    public MemberProfileDto 회원프로필(Long pageUserId,
 //        Long principalId) {  //userId는 로그인한 아이디가 아닌 페이지아이디디
 //        Image memberEntity = imageRepository.findById(pageUserId).orElseThrow(() -> {
-//            //return new IllegalArgumentException("해당 아이디를 찾을 수 없습니다.");
 //            return new IllegalArgumentException("해당 포스트를 찾을 수 없습니다.");
 //        });
 //

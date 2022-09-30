@@ -36,6 +36,8 @@ public class Image {
 
     private String username;
 
+    private Long snsId;
+
     @Builder.Default
     @Column
     private LocalDateTime creation_date = LocalDateTime.now();

@@ -5,4 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 public interface PrincipalDetails1 extends UserDetails {
 
     String getEmail();
+
+    Long getSnsId();
 }
