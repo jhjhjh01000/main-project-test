@@ -1,5 +1,6 @@
 package com.main.controller.member;
 
+import com.main.domain.image.Image;
 import com.main.domain.member.Member;
 import com.main.domain.member.MemberRepository;
 import com.main.dto.CMRespDto;
@@ -56,9 +57,7 @@ public class MemberController {
 
     @PostMapping("/signup") //회원가입
     public ResponseEntity postMember(@Valid @RequestBody MemberRegisterDto memberRegisterDto) {
-//        memberRegisterDto.setPassword(
-//            bCryptPasswordEncoder.encode(memberRegisterDto.getPassword()));
-//        memberRegisterDto.setRole("ROLE_USER");
+
         Member member = mapper.memberPostDtoToMember(memberRegisterDto);
 
         Member response = memberService.createMember(member);
@@ -110,18 +109,6 @@ public class MemberController {
             HttpStatus.OK);
     }
 
-    @GetMapping("/api/users")
-    public ResponseEntity getMembers(@Positive @RequestParam int page,
-        @Positive @RequestParam int size) {
-        Page<Member> pageMembers = memberService.findMembers(page - 1, size);
-        //List<Member> members = pageMembers.getContent();
-        return new ResponseEntity<>(
-            new MultiResponseDto<>(mapper.membersToMemberResponseDtos(pageMembers.getContent()),
-                pageMembers),
-            HttpStatus.OK);
-    }
-
-
     @DeleteMapping("/api/users/{userId}") //회원탈퇴
     public ResponseEntity deleteMember(
         @PathVariable("userId") @Positive long memberId) {
@@ -131,14 +118,11 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/api/users/2/{pageUserId}")
+    @GetMapping("/api/posts/{pageUserId}")
     public MemberProfileDto profile(@PathVariable Long pageUserId,
         @AuthenticationPrincipal PrincipalDetails principalDetails) {
         MemberProfileDto dto = memberGetService.회원프로필(pageUserId,
             principalDetails.getMember().getMemberId());
         return dto;
     }
-
-
-
 }

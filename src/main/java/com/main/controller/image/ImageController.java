@@ -1,16 +1,31 @@
 package com.main.controller.image;
 
 import com.main.config.auth.PrincipalDetails;
+import com.main.domain.image.Image;
+import com.main.dto.MultiResponseDto;
 import com.main.dto.image.ImageUploadDto;
+import com.main.mapper.MemberMapper;
+import com.main.service.MemberService;
 import com.main.service.image.ImageService;
+import com.main.service.image.MemberGetService;
+import java.util.List;
+import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
 public class ImageController {
+    private final MemberService memberService;
+
+    private final MemberMapper mapper;
 
 
     private final ImageService imageService;
@@ -28,5 +43,15 @@ public class ImageController {
 
     }
 
+    @GetMapping("/api/posts")
+    public ResponseEntity getMembers(@Positive @RequestParam(required = false, defaultValue = "1") Integer page,
+        @Positive @RequestParam(required = false, defaultValue = "100") Integer size) {
+        Page<Image> pageMembers = memberService.findImages(page - 1, size);
+        List<Image> images = pageMembers.getContent();
+        return new ResponseEntity<>(
+            new MultiResponseDto<>(mapper.pageResponseDtos(images),
+                pageMembers),
+            HttpStatus.OK);
+    }
 
 }

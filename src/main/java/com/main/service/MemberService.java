@@ -2,6 +2,8 @@ package com.main.service;
 
 import com.main.config.auth.PrincipalDetails;
 import com.main.controller.member.MemberController;
+import com.main.domain.image.Image;
+import com.main.domain.image.ImageRepository;
 import com.main.domain.member.Member;
 import com.main.dto.auth.MemberPatchDto;
 import com.main.exception.BusinessLogicException;
@@ -26,6 +28,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private final ImageRepository imageRepository;
+
     //verifyExistsEmail 체크후 이메일 존재여부 확인후 멤버레포지토리에 저장
     @Transactional
     public Member createMember(Member member) {
@@ -41,14 +45,9 @@ public class MemberService {
         return checkFindMember(memberId);
     }
 
-//    public Page<Member> findMembers(Integer page, Integer size) {
-//        return memberRepository.findAll(PageRequest.of(page, size,
-//            Sort.by("memberId").descending()));
-//    }
-
-    public Page<Member> findMembers(int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("memberId").descending());
-        return memberRepository.findAll(pageRequest);
+    public Page<Image> findImages(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        return imageRepository.findAll(pageRequest);
     }
     //회원정보 수정
     @Transactional

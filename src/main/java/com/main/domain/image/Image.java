@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.main.domain.member.Member;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,9 +36,12 @@ public class Image {
 
     private String username;
 
-    @JsonIgnoreProperties({"member"})   //json으로 파싱할떄 메세지 컨버터야 user는 하지마 (Image에 있는 user를 무시하고 파싱)
-    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
-    private List<Image> images;
+    @Builder.Default
+    @Column
+    private LocalDateTime creation_date = LocalDateTime.now();
+    @Builder.Default
+    @Column
+    private LocalDateTime last_edit_date = LocalDateTime.now();
 
     @JoinColumn(name = "memberId")
     @ManyToOne
