@@ -43,11 +43,6 @@ public class PrincipalDetails implements PrincipalDetails1 {
     }
 
     @Override
-    public Long getSnsId() {
-        return image.getSnsId();
-    }
-
-    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
