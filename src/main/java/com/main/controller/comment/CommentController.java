@@ -28,7 +28,7 @@ public class CommentController {
     /**
      *  댓글 생성
      */
-    @PostMapping("/api/comment")
+    @PostMapping("/api/comments")
     public ResponseEntity commentSave(@Valid @RequestBody CommentDto commentDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails){
         if (bindingResult.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
@@ -50,9 +50,9 @@ public class CommentController {
     /**
      *  댓글 삭제
      */
-    @DeleteMapping("/api/comment/{id}")
-    public ResponseEntity commentDelete(@PathVariable Long id){
-        commentService.댓글삭제(id);
+    @DeleteMapping("/api/comments/{commentId}")
+    public ResponseEntity commentDelete(@PathVariable Long commentId){
+        commentService.댓글삭제(commentId);
         return new ResponseEntity<>(new CMRespDto<>("댓글삭제 성공",null),HttpStatus.OK);
     }
 
