@@ -49,6 +49,10 @@ public class ImageController {
 
     }
 
+
+    /**
+     *   멤버아이디로 사진 업로드 GET 요청
+     */
     @GetMapping("/api/posts/{pageUserId}")
     public MemberProfileDto profile(@PathVariable Long pageUserId,
         @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -56,6 +60,11 @@ public class ImageController {
             principalDetails.getMember().getMemberId());
         return dto;
     }
+
+    /**
+     *  PostID로 GET 조회
+     */
+
 
     @GetMapping("/api/posts2/{postId}") //postId 단일 겟 요청
     public MemberProfileDto2 profile2(@PathVariable Long postId,
@@ -65,6 +74,9 @@ public class ImageController {
         return dto2;
     }
 
+    /**
+     *  전체유저의 게시물 보이기
+     */
 
 
     @GetMapping("/api/posts")
@@ -77,6 +89,12 @@ public class ImageController {
                 pageMembers),
             HttpStatus.OK);
     }
+
+    /**
+     *
+     *  게시물 삭제
+     */
+
 
     @DeleteMapping("/api/posts/{postId}") //게시물 삭제
     public ResponseEntity deletePost(
