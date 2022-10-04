@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class CommentDto {
 
+    private Long commendId;
+
     private String content;  // 내용
 
 
