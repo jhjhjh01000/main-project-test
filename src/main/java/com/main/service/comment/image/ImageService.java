@@ -1,4 +1,4 @@
-package com.main.service.image;
+package com.main.service.comment.image;
 
 import com.main.config.auth.PrincipalDetails;
 import com.main.domain.image.Image;

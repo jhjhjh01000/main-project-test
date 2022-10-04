@@ -1,18 +1,12 @@
 package com.main.domain.image;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.main.domain.comment.Comment;
 import com.main.domain.member.Member;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,5 +42,11 @@ public class Image {
     @JoinColumn(name = "memberId")
     @ManyToOne
     private Member member; // 한명의 유저는 여러 이미지를 업로드할 수 있다.
+
+    @OrderBy("id DESC")
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Comment> comments;
+
 
 }
