@@ -5,6 +5,7 @@ import com.main.domain.image.Image;
 import com.main.dto.MultiResponseDto;
 import com.main.dto.image.ImageUploadDto;
 import com.main.dto.member.MemberProfileDto;
+import com.main.dto.member.MemberProfileDto2;
 import com.main.mapper.MemberMapper;
 import com.main.service.MemberService;
 import com.main.service.image.ImageService;
@@ -55,13 +56,13 @@ public class ImageController {
         return dto;
     }
 
-//    @GetMapping("/api/posts/{pageUserId}")
-//    public MemberProfileDto profile(@PathVariable Long pageUserId,
-//        @AuthenticationPrincipal PrincipalDetails principalDetails) {
-//        MemberProfileDto dto = memberGetService.회원프로필(pageUserId,
-//            principalDetails.getMember().getMemberId());
-//        return dto;
-//    }
+    @GetMapping("/api/posts2/{postId}")
+    public MemberProfileDto2 profile2(@PathVariable Long postId,
+        @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        MemberProfileDto2 dto2 = memberGetService.회원프로필2(postId,
+            principalDetails.getMember().getMemberId());
+        return dto2;
+    }
 
 
 

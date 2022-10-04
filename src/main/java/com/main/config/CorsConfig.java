@@ -15,7 +15,6 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        //config.addAllowedOrigin("http://stbuddy-v2-http.s3-website.ap-northeast-2.amazonaws.com/"); //프론트 엔드포인트
         config.addAllowedOrigin("https://staybuddy.netlify.app/"); //프론트 엔드포인트
         config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedOrigin("https://server.staybuddy.net/");
