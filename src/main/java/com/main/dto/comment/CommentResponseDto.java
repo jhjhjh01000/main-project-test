@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class CommentResponseDto {
-    private Long commendId;
+    private Long id;
     private Long imageId;
     private String content;
     private Member member;
