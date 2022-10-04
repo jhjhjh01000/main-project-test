@@ -45,7 +45,7 @@ public class Image {
 
     @OrderBy("id DESC")
     @JsonIgnoreProperties({"image"})
-    @OneToMany(mappedBy = "image")
+    @OneToMany(mappedBy = "image",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comment> comments;
 
 

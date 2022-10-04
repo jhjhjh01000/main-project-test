@@ -3,11 +3,18 @@ package com.main.controller.comment;
 import com.main.config.auth.PrincipalDetails;
 import com.main.domain.comment.Comment;
 import com.main.dto.CMRespDto;
+import com.main.dto.MultiResponseDto;
 import com.main.dto.comment.CommentDto;
+import com.main.dto.comment.CommentResponseDto;
 import com.main.exception.CustomValidationApiException;
+import com.main.mapper.MemberMapper;
 import com.main.service.comment.CommentService;
+import java.util.List;
+import javax.validation.constraints.Positive;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.Mapper;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +30,7 @@ import java.util.Map;
 public class CommentController {
 
     private final CommentService commentService;
+    private final MemberMapper mapper;
 
 
     /**
@@ -45,9 +53,17 @@ public class CommentController {
 
         return new ResponseEntity<>(new CMRespDto<>("댓글 쓰기 성공",comment), HttpStatus.CREATED);
     }
+    @GetMapping("/api/{postId}/comments")
+    public ResponseEntity getComments(@PathVariable("postId") @Positive long postId,
+        @Positive @RequestParam(required = false, defaultValue = "1") Integer page, @Positive @RequestParam(required = false, defaultValue = "100") Integer size){
+        Page<Comment> pageComments = commentService.findComments(postId,page-1,size);
+        List<Comment> comments = pageComments.getContent();
+        List<CommentResponseDto> responses = mapper.commentsToCommentResponses(comments);
 
-
-
+        return new ResponseEntity<>(
+            new MultiResponseDto<>(responses,pageComments),HttpStatus.OK
+        );
+    }
 
     /**
      *  댓글 삭제
