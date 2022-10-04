@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,7 +57,7 @@ public class ImageController {
         return dto;
     }
 
-    @GetMapping("/api/posts2/{postId}")
+    @GetMapping("/api/posts2/{postId}") //postId 단일 겟 요청
     public MemberProfileDto2 profile2(@PathVariable Long postId,
         @AuthenticationPrincipal PrincipalDetails principalDetails) {
         MemberProfileDto2 dto2 = memberGetService.회원프로필2(postId,
@@ -69,12 +70,21 @@ public class ImageController {
     @GetMapping("/api/posts")
     public ResponseEntity getMembers(@Positive @RequestParam(required = false, defaultValue = "1") Integer page,
         @Positive @RequestParam(required = false, defaultValue = "100") Integer size) {
-        Page<Image> pageMembers = memberService.findImages(page - 1, size);
+        Page<Image> pageMembers = imageService.findImages(page - 1, size);
         List<Image> images = pageMembers.getContent();
         return new ResponseEntity<>(
             new MultiResponseDto<>(mapper.pageResponseDtos(images),
                 pageMembers),
             HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/posts/{postId}") //게시물 삭제
+    public ResponseEntity deletePost(
+        @PathVariable("postId") @Positive long postId) {
+        System.out.println("# delete post");
+        imageService.deletePost(postId);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

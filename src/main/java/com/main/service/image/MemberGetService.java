@@ -39,17 +39,13 @@ public class MemberGetService {
 
     @Transactional(readOnly = true) //단일 포스트 겟요청 서비스
     public MemberProfileDto2 회원프로필2(Long postId, Long memberId) {
-        Image memberEntity = imageRepository.findById(postId).orElseThrow(() -> {
+        Image memberEntity2 = imageRepository.findById(postId).orElseThrow(() -> {
             return new IllegalArgumentException("해당 포스트를 찾을 수 없습니다.");
         });
 
-
-        dto2.setImage(memberEntity);
-
+        dto2.setImage(memberEntity2);
 
         return dto2;
     }
-
-
 }
 

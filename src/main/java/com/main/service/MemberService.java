@@ -45,10 +45,6 @@ public class MemberService {
         return checkFindMember(memberId);
     }
 
-    public Page<Image> findImages(int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
-        return imageRepository.findAll(pageRequest);
-    }
     //회원정보 수정
     @Transactional
     public Member MemberUpdate(Long id,Member member){

@@ -10,6 +10,9 @@ import java.nio.file.Paths;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +45,17 @@ public class ImageService {
         Image image = imageUploadDto.toEntity(imageFileName,principalDetails.getMember(),
             principalDetails.getEmail(),SnsId);
         Image imageEntity = imageRepository.save(image);
+
+    }
+
+    public Page<Image> findImages(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        return imageRepository.findAll(pageRequest);
+    }
+    @Transactional
+
+    public void deletePost(Long postId) {
+        imageRepository.deleteById(postId);
 
     }
 }
