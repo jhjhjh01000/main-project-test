@@ -49,10 +49,10 @@ public class Image {
     private List<Comment> comments;
 
     @Column(nullable = true)
-    private int liked; // 좋아요 수
+    private Long liked; // 좋아요 수
 
-    public Image(int liked) {
-        this.liked = 0;
+    public Image(Long liked) {
+        this.liked = 0L;
     }
 
 }

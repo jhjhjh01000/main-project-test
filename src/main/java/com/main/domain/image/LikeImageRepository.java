@@ -3,7 +3,7 @@ package com.main.domain.image;
 import com.main.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LikeImageRepository extends JpaRepository<LikeImage, Integer> {
+public interface LikeImageRepository extends JpaRepository<LikeImage, Long> {
 
     LikeImage findByImageAndMember(Image image, Member member);
 
