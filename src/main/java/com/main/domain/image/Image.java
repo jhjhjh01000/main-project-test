@@ -48,4 +48,6 @@ public class Image {
     @OneToMany(mappedBy = "image",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comment> comments;
 
+    @OneToMany(mappedBy="image")
+    private List<Likes> likes;
 }
