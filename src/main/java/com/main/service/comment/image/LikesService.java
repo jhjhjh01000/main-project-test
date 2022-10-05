@@ -26,7 +26,7 @@ public class LikesService {
         likesRepository.mUnLikes(imageId, principalId);
     }
 
-    public Page<Likes> findLikes(int page, int size, @Positive Integer integer) {
+    public Page<Likes> findLikes(@Positive int imageId, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
         return likesRepository.findAll(pageRequest);
     }

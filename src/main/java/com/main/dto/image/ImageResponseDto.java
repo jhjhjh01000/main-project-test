@@ -1,6 +1,7 @@
 package com.main.dto.image;
 
 
+import com.main.domain.image.Likes;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

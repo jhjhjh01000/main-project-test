@@ -129,7 +129,7 @@ public class ImageController {
 
     @GetMapping("/{imageId}/likes")
     public ResponseEntity getComments(@PathVariable("imageId") @Positive int imageId,
-        @Positive @RequestParam(required = false, defaultValue = "2") Integer page, @Positive @RequestParam(required = false, defaultValue = "100") Integer size){
+        @Positive @RequestParam(required = false, defaultValue = "1") Integer page, @Positive @RequestParam(required = false, defaultValue = "50") Integer size){
         Page<Likes> pageLikes = likesService.findLikes(imageId,page-1,size);
         List<Likes> likes = pageLikes.getContent();
         List<LikesResponseDto> responses = mapper.likesResponseDtos(likes);

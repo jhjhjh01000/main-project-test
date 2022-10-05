@@ -15,9 +15,7 @@ public class LikesResponseDto {
 
     private Image image;
 
-//    private Member member;
-
-    private Likes likes;
+    private int likes = 0;
     private LocalDateTime createDate;
 
     private LocalDateTime creation_date;
