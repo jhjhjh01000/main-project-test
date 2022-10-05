@@ -48,11 +48,4 @@ public class Image {
     @OneToMany(mappedBy = "image",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comment> comments;
 
-    @Column(nullable = true)
-    private Long liked; // 좋아요 수
-
-    public Image(Long liked) {
-        this.liked = 0L;
-    }
-
 }

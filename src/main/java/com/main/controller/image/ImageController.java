@@ -4,6 +4,7 @@ import com.main.config.auth.PrincipalDetails;
 import com.main.domain.image.Image;
 import com.main.domain.member.Member;
 import com.main.domain.member.MemberRepository;
+import com.main.dto.CMRespDto;
 import com.main.dto.MultiResponseDto;
 import com.main.dto.image.ImageUploadDto;
 import com.main.dto.member.MemberProfileDto;
@@ -11,6 +12,7 @@ import com.main.dto.member.MemberProfileDto2;
 import com.main.mapper.MemberMapper;
 import com.main.service.MemberService;
 import com.main.service.comment.image.ImageService;
+import com.main.service.comment.image.LikesService;
 import com.main.service.comment.image.MemberGetService;
 import java.util.List;
 import javax.validation.constraints.Positive;
@@ -42,6 +44,7 @@ public class ImageController {
 
     private final MemberRepository memberRepository;
 
+    private final LikesService likesService;
     // postImageUrl을 받는 것이 아닌 파일을 받아야한다.
     // 그러므로 요청을 위한 Dto가 필요
     // 이미지를 업로드 하기 위해서는 로그인이 되어있는 유저정보가 필요
@@ -114,12 +117,9 @@ public class ImageController {
      *   사진 좋아요 API
      */
 
-    @PostMapping("/image/{imageId}")
-    public ResponseEntity likeImage(@PathVariable Long imageId){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = memberRepository.findByEmail(authentication.getName());
-
-        return new ResponseEntity<>(imageService.likeImage(imageId,member),HttpStatus.OK);
-
+    @PostMapping("/{imageId}/likes")
+    public ResponseEntity likes(@PathVariable("imageId") Long imageId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        likesService.likes(imageId,principalDetails.getMember().getMemberId());
+        return new ResponseEntity<>(new CMRespDto<>("좋아요성공",null),HttpStatus.CREATED);
     }
 }
