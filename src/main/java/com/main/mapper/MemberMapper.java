@@ -2,12 +2,14 @@ package com.main.mapper;
 
 import com.main.domain.comment.Comment;
 import com.main.domain.image.Image;
+import com.main.domain.image.Likes;
 import com.main.domain.member.Member;
 import com.main.dto.image.ImageResponseDto;
 import com.main.dto.auth.MemberPatchDto;
 import com.main.dto.auth.MemberRegisterDto;
 import com.main.dto.auth.MemberResponseDto;
 import com.main.dto.comment.CommentResponseDto;
+import com.main.dto.likes.LikesResponseDto;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -22,5 +24,7 @@ public interface MemberMapper {
     List<ImageResponseDto> pageResponseDtos(List<Image> images);
 
     List<CommentResponseDto> commentsToCommentResponses(List<Comment> comments);
+
+    List<LikesResponseDto> likesResponseDtos(List<Likes> likes);
 
 }

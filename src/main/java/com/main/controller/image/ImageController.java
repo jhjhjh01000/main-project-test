@@ -1,12 +1,16 @@
 package com.main.controller.image;
 
 import com.main.config.auth.PrincipalDetails;
+import com.main.domain.comment.Comment;
 import com.main.domain.image.Image;
+import com.main.domain.image.Likes;
 import com.main.domain.member.Member;
 import com.main.domain.member.MemberRepository;
 import com.main.dto.CMRespDto;
 import com.main.dto.MultiResponseDto;
+import com.main.dto.comment.CommentResponseDto;
 import com.main.dto.image.ImageUploadDto;
+import com.main.dto.likes.LikesResponseDto;
 import com.main.dto.member.MemberProfileDto;
 import com.main.dto.member.MemberProfileDto2;
 import com.main.mapper.MemberMapper;
@@ -121,5 +125,17 @@ public class ImageController {
     public ResponseEntity likes(@PathVariable("imageId") Long imageId, @AuthenticationPrincipal PrincipalDetails principalDetails){
         likesService.likes(imageId,principalDetails.getMember().getMemberId());
         return new ResponseEntity<>(new CMRespDto<>("좋아요성공",null),HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{imageId}/likes")
+    public ResponseEntity getComments(@PathVariable("imageId") @Positive int imageId,
+        @Positive @RequestParam(required = false, defaultValue = "2") Integer page, @Positive @RequestParam(required = false, defaultValue = "100") Integer size){
+        Page<Likes> pageLikes = likesService.findLikes(imageId,page-1,size);
+        List<Likes> likes = pageLikes.getContent();
+        List<LikesResponseDto> responses = mapper.likesResponseDtos(likes);
+
+        return new ResponseEntity<>(
+            new MultiResponseDto<>(responses,pageLikes),HttpStatus.OK
+        );
     }
 }

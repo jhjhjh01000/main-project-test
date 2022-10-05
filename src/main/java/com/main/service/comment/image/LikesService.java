@@ -1,7 +1,12 @@
 package com.main.service.comment.image;
 
+import com.main.domain.image.Likes;
 import com.main.domain.image.LikesRepository;
+import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,5 +24,10 @@ public class LikesService {
     @Transactional
     public void unLikes(Long imageId, Long principalId) {
         likesRepository.mUnLikes(imageId, principalId);
+    }
+
+    public Page<Likes> findLikes(int page, int size, @Positive Integer integer) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
+        return likesRepository.findAll(pageRequest);
     }
 }
