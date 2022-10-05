@@ -48,5 +48,11 @@ public class Image {
     @OneToMany(mappedBy = "image",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comment> comments;
 
+    @Column(nullable = true)
+    private int liked; // 좋아요 수
+
+    public Image(int liked) {
+        this.liked = 0;
+    }
 
 }

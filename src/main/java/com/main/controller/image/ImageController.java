@@ -2,6 +2,8 @@ package com.main.controller.image;
 
 import com.main.config.auth.PrincipalDetails;
 import com.main.domain.image.Image;
+import com.main.domain.member.Member;
+import com.main.domain.member.MemberRepository;
 import com.main.dto.MultiResponseDto;
 import com.main.dto.image.ImageUploadDto;
 import com.main.dto.member.MemberProfileDto;
@@ -16,7 +18,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +39,8 @@ public class ImageController {
 
 
     private final ImageService imageService;
+
+    private final MemberRepository memberRepository;
 
     // postImageUrl을 받는 것이 아닌 파일을 받아야한다.
     // 그러므로 요청을 위한 Dto가 필요
@@ -95,7 +101,6 @@ public class ImageController {
      *  게시물 삭제
      */
 
-
     @DeleteMapping("/api/posts/{postId}") //게시물 삭제
     public ResponseEntity deletePost(
         @PathVariable("postId") @Positive long postId) {
@@ -105,4 +110,16 @@ public class ImageController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     *   사진 좋아요 API
+     */
+
+    @PostMapping("/image/{imageId}")
+    public ResponseEntity likeImage(@PathVariable Long imageId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = memberRepository.findByEmail(authentication.getName());
+
+        return new ResponseEntity<>(imageService.likeImage(imageId,member),HttpStatus.OK);
+
+    }
 }
