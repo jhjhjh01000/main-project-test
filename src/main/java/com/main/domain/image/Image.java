@@ -48,6 +48,7 @@ public class Image {
     @OneToMany(mappedBy = "image",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comment> comments;
 
+    @JsonIgnoreProperties({"image"})
     @OneToMany(mappedBy="image")
     private List<Likes> likes;
 }
