@@ -11,6 +11,8 @@ import com.main.mapper.MemberMapper;
 import com.main.service.comment.CommentService;
 import java.util.List;
 import javax.validation.constraints.Positive;
+
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
@@ -36,6 +38,8 @@ public class CommentController {
     /**
      *  댓글 생성
      */
+    @ApiOperation(value = "댓글 생성", notes = "게시글에 댓글 생성(본인 및 타인 게시물에 게시글 등록 가능), 요청 해주신 가입한 회원 아이디가 아닌" +
+            "닉네임으로 댓글 생성한 사람 보이도록 함 ")
     @PostMapping("/api/comments")
     public ResponseEntity commentSave(@Valid @RequestBody CommentDto commentDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails){
         if (bindingResult.hasErrors()) {
@@ -53,6 +57,13 @@ public class CommentController {
 
         return new ResponseEntity<>(new CMRespDto<>("댓글 쓰기 성공",comment), HttpStatus.CREATED);
     }
+
+    /**
+     *  댓글 조회
+     */
+
+
+    @ApiOperation(value = "댓글 조회", notes = "댓글 조회하도록함 ")
     @GetMapping("/api/{postId}/comments")
     public ResponseEntity getComments(@PathVariable("postId") @Positive long postId,
         @Positive @RequestParam(required = false, defaultValue = "1") Integer page, @Positive @RequestParam(required = false, defaultValue = "100") Integer size){
@@ -68,6 +79,8 @@ public class CommentController {
     /**
      *  댓글 삭제
      */
+
+    @ApiOperation(value = "댓글 삭제", notes = "댓글 삭제 가능")
     @DeleteMapping("/api/comments/{commentId}")
     public ResponseEntity commentDelete(@PathVariable Long commentId){
         commentService.댓글삭제(commentId);

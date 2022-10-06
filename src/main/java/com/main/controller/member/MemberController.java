@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,17 +35,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @Slf4j
 @RequiredArgsConstructor
-//@RequestMapping("/api/users")
 
 
 public class MemberController {
 
     private final MemberService memberService;
 
-    private final MemberGetService memberGetService;
-
     private final MemberMapper mapper;
 
+    /**
+     *   회원 가입
+     */
+
+    @ApiOperation(value = "회원 가입", notes = "회원 가입 가능, DB에 회원데이터 암호화되서 저장")
     @PostMapping("/signup") //회원가입
     public ResponseEntity postMember(@Valid @RequestBody MemberRegisterDto memberRegisterDto) {
 
@@ -68,6 +72,12 @@ public class MemberController {
 //            HttpStatus.OK);
 //    }
 
+    /**
+     *  마이페이지에서 회원 수정
+     */
+
+
+    @ApiOperation(value = "회원 수정", notes = "마이페이지에서 회원정보 수정 가능케하는 API(본인 회원정보만 수정가능)")
     @PatchMapping("/api/users/{id}")
     public CMRespDto<?> update(@PathVariable Long id,
         @Valid @RequestBody MemberUpdateDto memberUpdateDto, BindingResult bindingResult,
@@ -89,6 +99,11 @@ public class MemberController {
         return new CMRespDto<>("회원수정이 불가능 합니다", null);
     }
 
+    /**
+     *   회원 조회
+     */
+
+    @ApiOperation(value = "회원 단일 조회 ", notes = "개별회원 정보 조회")
     @GetMapping("/api/users/{userId}") //회원 조회
     public ResponseEntity getMember(
         @PathVariable("userId") @Positive long memberId) {
@@ -98,6 +113,12 @@ public class MemberController {
             HttpStatus.OK);
     }
 
+    /**
+     *   회원 탈퇴
+     */
+
+
+    @ApiOperation(value = "회원 탈퇴 ", notes = "삭제 요청한 회원이 DB에 삭제되며 로그인 안됨 ")
     @DeleteMapping("/api/users/{userId}") //회원탈퇴
     public ResponseEntity deleteMember(
         @PathVariable("userId") @Positive long memberId) {

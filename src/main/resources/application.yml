@@ -20,10 +20,14 @@ spring:
       hibernate:
     show_sql: true
 
+
   servlet:
     multipart:
       max-file-size: 10MB
       enabled: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 logging.level:
   org.hibernate.SQL: debug
