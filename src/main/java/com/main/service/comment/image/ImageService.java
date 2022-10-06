@@ -6,11 +6,14 @@ import com.main.domain.image.ImageRepository;
 import com.main.domain.image.Likes;
 import com.main.domain.image.LikesRepository;
 import com.main.domain.member.Member;
+import com.main.dto.image.ImageUpdateDto;
 import com.main.dto.image.ImageUploadDto;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -18,7 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+@Data
 @RequiredArgsConstructor
 @Service
 public class ImageService {
@@ -61,4 +64,35 @@ public class ImageService {
     public void deletePost(Long postId) {
         imageRepository.deleteById(postId);
     }
+
+
+    /**
+     *  게시글 수정
+     */
+
+
+    @Transactional
+    public ImageUpdateDto update(Long id,ImageUpdateDto imageUpdateDto){
+        Image image = imageRepository.findById(id).orElseThrow( ()->{
+            return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+                });
+
+        image.setCaption(imageUpdateDto.getCaption());
+        return ImageUpdateDto.toDto(image);
+    }
+
+
+    /**
+     * 개별 게시물 조회
+     */
+    @Transactional(readOnly = true)
+    public Image getImage(Long id){
+        Image image = imageRepository.findById(id).orElseThrow(
+                ()-> { return new IllegalArgumentException("회원아이디를 찾을 수 없습니다.");
+                });
+        return image;
+    }
+
+
+
 }
