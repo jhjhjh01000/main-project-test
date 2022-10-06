@@ -20,6 +20,8 @@ public class ImageResponseDto {
 
     private Long snsId;
 
+    private Long liked;
+
     private LocalDateTime creation_date;
 
     private LocalDateTime last_edit_date;

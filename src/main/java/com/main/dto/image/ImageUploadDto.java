@@ -16,15 +16,18 @@ public class ImageUploadDto {
 
     private Long snsId;
 
+    private Long liked;
+
     private List<CommentResponseDto> comments;
 
     // postImage가 정확하게 뭐냐면면
-    public Image toEntity(String postImageUrl, Member member, String username, Long snsId){
+    public Image toEntity(String postImageUrl, Member member, String username, Long snsId, Long liked){
         return Image.builder()
             .caption(caption)
             .username(username)
             .postImageUrl(postImageUrl)
             .snsId(snsId)
+            .liked(liked)
             .member(member)
             .build();
     }

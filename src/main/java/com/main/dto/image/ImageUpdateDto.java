@@ -12,12 +12,14 @@ public class ImageUpdateDto {
 
     private String caption;
     private String username;
+    private Long liked;
 
 
     //엔티티 -> dto
     public static ImageUpdateDto toDto(Image image){
         return new ImageUpdateDto(
                 image.getCaption(),
-                image.getMember().getUsername());
+                image.getMember().getUsername(),
+                image.getLiked());
     }
 }

@@ -140,14 +140,13 @@ public class ImageController {
      */
 
     @PatchMapping("/api/posts/{postId}")
-    public String edit(@PathVariable Long postId,@RequestBody ImageUpdateDto imageUpdateDto,@AuthenticationPrincipal PrincipalDetails principalDetails){
-      Member member  =  principalDetails.getMember();
-      if (member.getUsername().equals(imageService.getImage(postId).getUsername())){
+    public String edit(@PathVariable Long postId, ImageUpdateDto imageUpdateDto,@AuthenticationPrincipal PrincipalDetails principalDetails){
+//      Member member  =  principalDetails.getMember();
+//      if (member.getUsername().equals(imageService.getImage(postId).getUsername())){
             imageService.update(postId,imageUpdateDto);
             return "수정완료";
             }
-      else{
-          return "본인 게시물만 수정할 수 있습니다";
-      }
+//      else{
+//          return "본인 게시물만 수정할 수 있습니다";
+//      }
     }
-}

@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Builder
 @NoArgsConstructor
@@ -31,24 +33,29 @@ public class Image {
     private String username;
 
     private Long snsId;
+    private Long liked;
+    @PrePersist
+    public void prePersist() {
+        this.liked = this.liked == null ? 0 : this.liked;
+    }
 
-    @Builder.Default
-    @Column
-    private LocalDateTime creation_date = LocalDateTime.now();
-    @Builder.Default
-    @Column
-    private LocalDateTime last_edit_date = LocalDateTime.now();
+        @Builder.Default
+        @Column
+        private LocalDateTime creation_date = LocalDateTime.now();
+        @Builder.Default
+        @Column
+        private LocalDateTime last_edit_date = LocalDateTime.now();
 
-    @JoinColumn(name = "memberId")
-    @ManyToOne
-    private Member member; // 한명의 유저는 여러 이미지를 업로드할 수 있다.
+        @JoinColumn(name = "memberId")
+        @ManyToOne
+        private Member member; // 한명의 유저는 여러 이미지를 업로드할 수 있다.
 
-    @OrderBy("id DESC")
-    @JsonIgnoreProperties({"image"})
-    @OneToMany(mappedBy = "image",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Comment> comments;
+        @OrderBy("id DESC")
+        @JsonIgnoreProperties({"image"})
+        @OneToMany(mappedBy = "image", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+        private List<Comment> comments;
 
-    @JsonIgnoreProperties({"image"})
-    @OneToMany(mappedBy="image")
-    private List<Likes> likes;
-}
+        @JsonIgnoreProperties({"image"})
+        @OneToMany(mappedBy = "image")
+        private List<Likes> likes;
+    }

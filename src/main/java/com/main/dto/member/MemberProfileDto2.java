@@ -13,5 +13,4 @@ import lombok.NoArgsConstructor;
 @Data
 public class MemberProfileDto2 {
     private Image image;
-
 }

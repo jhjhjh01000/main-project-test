@@ -41,7 +41,7 @@ public class ImageService {
         Path imageFilePath = Paths.get(uploadFolder + imageFileName);
 
         Long SnsId = imageUploadDto.getSnsId();
-
+        Long Liked = imageUploadDto.getLiked();
         try {
             Files.write(imageFilePath, imageUploadDto.getFile().getBytes());
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class ImageService {
         }
 
         Image image = imageUploadDto.toEntity(imageFileName, principalDetails.getMember(),
-            principalDetails.getEmail(), SnsId);
+            principalDetails.getEmail(), SnsId, Liked);
         Image imageEntity = imageRepository.save(image);
 
     }
@@ -78,6 +78,7 @@ public class ImageService {
                 });
 
         image.setCaption(imageUpdateDto.getCaption());
+        image.setLiked(imageUpdateDto.getLiked());
         return ImageUpdateDto.toDto(image);
     }
 
