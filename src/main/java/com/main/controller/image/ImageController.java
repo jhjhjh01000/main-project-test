@@ -139,11 +139,11 @@ public class ImageController {
      *
      */
 
-    @PatchMapping("/api/update/{id}")
-    public String edit(@PathVariable Long id,@RequestBody ImageUpdateDto imageUpdateDto,@AuthenticationPrincipal PrincipalDetails principalDetails){
+    @PatchMapping("/api/posts/{postId}")
+    public String edit(@PathVariable Long postId,@RequestBody ImageUpdateDto imageUpdateDto,@AuthenticationPrincipal PrincipalDetails principalDetails){
       Member member  =  principalDetails.getMember();
-      if (member.getUsername().equals(imageService.getImage(id).getUsername())){
-            imageService.update(id,imageUpdateDto);
+      if (member.getUsername().equals(imageService.getImage(postId).getUsername())){
+            imageService.update(postId,imageUpdateDto);
             return "수정완료";
             }
       else{
