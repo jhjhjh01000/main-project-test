@@ -35,6 +35,7 @@ public class MemberService {
     public Member createMember(Member member) {
 
         verifyExistsEmail(member.getEmail());
+        verifyExistsUsername(member.getUsername());
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
         member.setRole("ROLE_USER");
 
@@ -91,6 +92,15 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
     }
+    //사용중인 닉네임으로 회원가입 불가능
+    private void verifyExistsUsername(String username) {
+        Optional<Member> member = Optional.ofNullable(memberRepository.findByUsername(username));
+
+        if (member.isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.USERNAME_EXISTS);
+        }
+    }
+
     @Transactional(readOnly = true)
     public Member checkFindMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);

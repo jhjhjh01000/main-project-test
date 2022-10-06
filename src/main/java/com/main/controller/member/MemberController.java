@@ -98,8 +98,6 @@ public class MemberController {
             HttpStatus.OK);
     }
 
-
-
     @DeleteMapping("/api/users/{userId}") //회원탈퇴
     public ResponseEntity deleteMember(
         @PathVariable("userId") @Positive long memberId) {
@@ -108,6 +106,4 @@ public class MemberController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
-
 }
