@@ -77,7 +77,7 @@ public class ImageService {
             return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
                 });
 
-        image.setCaption(imageUpdateDto.getCaption());
+//        image.setCaption(imageUpdateDto.getCaption());
         image.setLiked(imageUpdateDto.getLiked());
         return ImageUpdateDto.toDto(image);
     }
